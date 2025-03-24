@@ -1,5 +1,5 @@
 ---
-title: "nmlab3.github.io"
+title: "Lab 3: COVID-19"
 subtitle: 'Ecosystem Science and Sustainability 330'
 author:
   - name: Neva Morgan
@@ -41,41 +41,40 @@ OBJECTIVES:
 
 1.  cumulative cases in the 5 worst counties
 
-```{r}
-my.date <- as.Date("2022-02-01")
-my.state <- "Colorado"
-```
+    ```{r}
+    my.date <- as.Date("2022-02-01")
+    my.state <- "Colorado"
+    ```
 
 2.  total **NEW** cases in the 5 worst counties
 
 ```{r}
-covid_data <- covid
-colorado <- covid_data |>
-  filter(state == my.state) |>
-  group_by(county) |>
-  arrange(date) |>
-  mutate(new_cases = cases - lag(cases),
-         new_deaths = deaths - lag(deaths)) |>
-  ungroup()
+    covid_data <- covid
+
+    colorado <- covid_data |>
+      filter(state == my.state) |>
+      group_by(county) |>
+      arrange(date) |>
+      mutate(new_cases = cases - lag(cases),
+             new_deaths = deaths - lag(deaths)) |>
+      ungroup()
 ```
 
 3.  A list of safe counties
 
-```{r}
-filter(colorado, date == my.date) |>
-  slice_max(cases, n = 5) |>
-  select(Date = date, County = county, Cases = cases) |>
-  flextable() |>
-  set_caption(caption = "Most Total Cases")
-  
+    ```{r}
+    filter(colorado, date == my.date) |>
+      slice_max(cases, n = 5) |>
+      select(Date = date, County = county, Cases = cases) |>
+      flextable() |>
+      set_caption(caption = "Most Total Cases")
 
-filter(colorado, date == my.date) |>
-  slice_max(cases, n = 5) |>
-  select(Date = date, County = county, Cases = new_cases) |>
-  flextable() |>
-  set_caption(caption = "Most NEW Cases")
-
-```
+    filter(colorado, date == my.date) |>
+      slice_max(cases, n = 5) |>
+      select(Date = date, County = county, Cases = new_cases) |>
+      flextable() |>
+      set_caption(caption = "Most NEW Cases")
+    ```
 
 4.  A text report describing the total new cases, total cumulative cases, and number of safe counties.
 
@@ -109,7 +108,7 @@ glimpse(colorado_data)
 
 #### 4. Join the population data to the Colorado COVID data and compute the per capita cumulative cases, per capita new cases, and per capita new deaths:
 ```{r}
-pop_data <- pop_data |> mutate(CTYNAME = str_replace(CTYNAME, "County", ""))
+pop_data <- pop_data |> mutate(CTYNAME = str_replace(CTYNAME, " County", ""))
 
 covid_data <- covid_data |>
   arrange(county, date) |>
@@ -123,10 +122,9 @@ colorado_combined <- covid_data |>
   left_join(pop_data |> rename(state = STNAME, county = CTYNAME), by = c("state", "county")) |>
   mutate(
     percapita_cumulative_cases = cases / POPESTIMATE2021,
-    percapita_new_cases = new_cases / POPESTIMATE2021,
+    percapita_new_cases = new_cases / POPESTIMATE2021,  # Now using computed new_cases
     percapita_new_deaths = new_deaths / POPESTIMATE2021
-  ) |>
-  glimpse()
+  )
 
 ```
 
