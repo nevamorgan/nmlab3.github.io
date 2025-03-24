@@ -1,5 +1,5 @@
 ---
-title: "Lab 3: COVID-19"
+title: "nmlab3.github.io"
 subtitle: 'Ecosystem Science and Sustainability 330'
 author:
   - name: Neva Morgan
