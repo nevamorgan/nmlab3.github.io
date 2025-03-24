@@ -1,0 +1,15 @@
+project:
+  type: website
+
+website:
+  title: "Neva Morgan ESS330 Lab 3"
+  navbar:
+    left:
+      - href: index.qmd
+        text: Home
+      - about.qmd
+
+format:
+  html:
+    self-contained: true
+
