@@ -1,11 +1,206 @@
 ---
-title: "nmlab3.github.io"
+title: "Lab 3: COVID-19"
+subtitle: 'Ecosystem Science and Sustainability 330'
+author:
+  - name: Neva Morgan
+    email: neva.morgan@colostate.edu
+format: html
 ---
 
-This is a Quarto website.
+```{r}
+library(tidyverse)
+library(zoo)
+library(flextable)
+library(ggplot2)
 
-To learn more about Quarto websites visit <https://quarto.org/docs/websites>.
+url <- 'https://raw.githubusercontent.com/nytimes/covid-19-data/master/us-counties.csv'
+covid <- read.csv(url)
+
+```
+
+### **Question 1:** **Public Data**
+
+#### Take a moment to reflect on the value of open data:
+
+1.  How does easy access to historical and real-time environmental, data shape our understanding of climate trends, resource management, and public health?
+    1.  It's crucial for data especially concerning climate trends, resource management, and public health to be public information, but I can understand the concern of data privacy as it relates to foreign body intentions. Certain aspects of data are vital to be kept private, for example, even data that is pulled from a CitSci organization must have a check of intentions with the data they are requesting. I think for future projections of any real data that is interacting with people internationally, that should be public knowledge. Giving the ability of access is crucial in developing possible new strategies for combating and mitigating lasting effects of climate change.
+2.  What happens when this data disappears or becomes inaccessible?
+    1.  
+3.  The role of independent archiving and collaborative stewardship has never been more critical in ensuring scientific progress and accountability.
+    1.  
+
+\~\~\~
+
+### **Question 2: Daily Summary**
+
+Focused criteria to use to place countries on the watch list for COVID-19:
+
+-   More than 100 new cases per 100,000 residents over the past 14 days…
+
+OBJECTIVES:
+
+1.  cumulative cases in the 5 worst counties
 
 ```{r}
-1 + 1
+my.date <- as.Date("2022-02-01")
+my.state <- "Colorado"
 ```
+
+2.  total **NEW** cases in the 5 worst counties
+
+```{r}
+covid_data <- covid
+colorado <- covid_data |>
+  filter(state == my.state) |>
+  group_by(county) |>
+  arrange(date) |>
+  mutate(new_cases = cases - lag(cases),
+         new_deaths = deaths - lag(deaths)) |>
+  ungroup()
+```
+
+3.  A list of safe counties
+
+```{r}
+filter(colorado, date == my.date) |>
+  slice_max(cases, n = 5) |>
+  select(Date = date, County = county, Cases = cases) |>
+  flextable() |>
+  set_caption(caption = "Most Total Cases")
+  
+
+filter(colorado, date == my.date) |>
+  slice_max(cases, n = 5) |>
+  select(Date = date, County = county, Cases = new_cases) |>
+  flextable() |>
+  set_caption(caption = "Most NEW Cases")
+
+```
+
+4.  A text report describing the total new cases, total cumulative cases, and number of safe counties.
+
+# **Question 3: Normalizing Data**
+
+#### 1. Given the above URL, and guidelines on string concatenation and formatting, read in the population data and (1) create a five digit FIP variable and only keep columns that contain “NAME” or “2021” (remember the tidyselect option found with ?dplyr::select). Additionally, remove all state level rows (e.g. COUNTY FIP == “000”)
+```{r}
+pop_url <- 'https://www2.census.gov/programs-surveys/popest/datasets/2020-2023/counties/totals/co-est2023-alldata.csv'
+
+pop_data <- read.csv(pop_url) |>
+  filter(COUNTY != "000") |>
+  mutate(fips = sprintf("%05s", paste0(STATE, COUNTY))) |>
+  select(fips, contains("NAME"), contains("2021"))
+glimpse(pop_data)
+```
+#### 2. Now, explore the data … what attributes does it have, what are the names of the columns? Do any match the COVID data we have? What are the dimensions… In a few sentences describe the data obtained after modification:
+###### The data that was comprised in the table above displays a more concise depiction of the 2021 covid data. The data represents 3195 observations (rows) with 19 variables (columns). The 19 variables represent as of 2021: fip code, state, county name, population as of 2021, population changes, births, deaths, natural change, international migration, domestic migration, net migration, residual population, GQ estimation, birth rates, death rates, natural change rate, international migration rate, domestic migration rate, and net migration rate. There are similarities between the covid dataset and population data set, as they both include deaths (although covid data is related to covid deaths and pop data is related ot total deaths), state, and county.  
+
+#### 3. What is the range of populations seen in Colorado counties in 2021:
+```{r}
+colorado_data <- pop_data |>
+  rename(state = STNAME)|>
+  filter(state == "Colorado") |>
+  summarize(min_pop = min(POPESTIMATE2021, na.rm = TRUE),
+    max_pop = max(POPESTIMATE2021, na.rm = TRUE),
+    pop_range = max_pop - min_pop
+  )
+glimpse(colorado_data)
+```
+
+
+#### 4. Join the population data to the Colorado COVID data and compute the per capita cumulative cases, per capita new cases, and per capita new deaths:
+```{r}
+pop_data <- pop_data |> mutate(CTYNAME = str_replace(CTYNAME, "County", ""))
+
+covid_data <- covid_data |>
+  arrange(county, date) |>
+  group_by(county) |> 
+  mutate(new_cases = cases - lag(cases, default = 0)) |>
+  mutate(new_deaths = deaths - lag(deaths, default = 0)) |>
+  ungroup()
+
+colorado_combined <- covid_data |>
+  filter(state == "Colorado") |>
+  left_join(pop_data |> rename(state = STNAME, county = CTYNAME), by = c("state", "county")) |>
+  mutate(
+    percapita_cumulative_cases = cases / POPESTIMATE2021,
+    percapita_new_cases = new_cases / POPESTIMATE2021,
+    percapita_new_deaths = new_deaths / POPESTIMATE2021
+  ) |>
+  glimpse()
+
+```
+
+
+#### 5. Generate (2) new tables. The first should show the 5 counties with the most cumulative cases per capita on 2021-01-01, and the second should show the 5 counties with the most NEW cases per capita on the same date. Your tables should have clear column names and descriptive captions.
+
+```{r}
+CO_counties <- colorado_combined |>
+  filter(date == "2021-01-01") |>
+  arrange(desc(percapita_cumulative_cases)) |>
+  slice_head(n = 5)
+
+ggplot(CO_counties, aes(x = reorder(county, percapita_cumulative_cases), y = percapita_cumulative_cases)) +
+  geom_col(fill = "blue") +
+  labs(
+    title = "Top 5 Counties by Cumulative COVID Cases per Capita (2021-01-01)",
+    caption = "ESS330 Lab 3 Neva Morgan",
+    x = "County",
+    y = "Cumulative Cases Per Capita"
+  ) +
+  theme_bw()
+
+
+CO_new_counties <- colorado_combined |>
+  filter(date == "2021-01-01") |>
+  arrange(desc(percapita_new_cases)) |>
+  slice_head(n = 5)
+
+ggplot(CO_new_counties, aes(x = reorder(county, percapita_new_cases), y = percapita_new_cases)) +
+  geom_col(fill = "magenta") +
+  labs(
+    title = "Top 5 Counties by New COVID Cases per Capita (2021-01-01)",
+    caption = "ESS330 Lab 3 Neva Morgan",
+    x = "County",
+    y = "New Cases Per Capita"
+  ) +
+  theme_minimal()
+```
+
+# **Question 4: Rolling thresholds**
+#### Filter the merged COVID/Population data to only include the last 14 days. Remember this should be a programmatic request and not hard-coded. Then, use the group_by/summarize paradigm to determine the total number of new cases in the last 14 days per 100,000 people. Print a table of the top 5 counties, and, report the number that meet the watch list condition: “More than 100 new cases per 100,000 residents over the past 14 days…”
+
+(Hint: Dates are numeric in R and thus operations like max min, -, +, >, and< work.)
+
+```{r}
+
+```
+
+
+
+# **Question 6: Multi-state**
+
+## **Steps:**
+
+```{r}
+
+```
+
+1.  First, we need to `group/summarize` our county level data to the state level, `filter` it to the four states of interest, and calculate the number of daily new cases (`diff/lag`) and the 7-day rolling mean.
+
+**Rolling Averages**
+
+**Hint:** You will need two `group_by` calls and the `zoo::rollmean` function.
+
+2.  Using the modified data, make a facet plot of the daily new cases and the 7-day rolling mean. Your plot should use compelling geoms, labels, colors, and themes.
+
+<!-- -->
+
+3.  The story of raw case counts can be misleading. To understand why, lets explore the cases per capita of each state. To do this, join the state COVID data to the population estimates and calculate the newcases/totalpopulation. Additionally, calculate the 7-day rolling mean of the new cases per capita counts. **This is a tricky task and will take some thought, time, and modification to existing code (most likely)!**
+
+**Hint**: You may need to modify the columns you kept in your original population data. Be creative with how you join data (inner vs outer vs full)!
+
+4.  Using the per capita data, plot the 7-day rolling averages overlying each other (one plot) with compelling labels, colors, and theme.
+
+<!-- -->
+
+5.  Briefly describe the influence scaling by population had on the analysis? Does it make some states look better? Some worse? How so?

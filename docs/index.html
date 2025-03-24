@@ -6,8 +6,9 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
+<meta name="author" content="Neva Morgan">
 
-<title>nmlab3.github.io</title>
+<title>Lab 3: COVID-19 – nmlab3.github.io</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -4741,6 +4742,82 @@ vertical-align: -.125em;
     "search-label": "Search"
   }
 }</script>
+<style type="text/css">.tabwid {
+font-size: initial;
+padding-bottom: 1em;
+}
+.tabwid table{
+border-spacing:0px !important;
+border-collapse:collapse;
+line-height:1;
+margin-left:auto;
+margin-right:auto;
+border-width: 0;
+border-color: transparent;
+caption-side: top;
+}
+.tabwid-caption-bottom table{
+caption-side: bottom;
+}
+.tabwid_left table{
+margin-left:0;
+}
+.tabwid_right table{
+margin-right:0;
+}
+.tabwid td, .tabwid th {
+padding: 0;
+}
+.tabwid a {
+text-decoration: none;
+}
+.tabwid thead {
+background-color: transparent;
+}
+.tabwid tfoot {
+background-color: transparent;
+}
+.tabwid table tr {
+background-color: transparent;
+}
+.katex-display {
+margin: 0 0 !important;
+}
+</style>
+
+<script>document.addEventListener("DOMContentLoaded", function(event) {
+  var els = document.querySelectorAll(".tabwid");
+  var tabwid_link = document.querySelector('link[href*="tabwid.css"]')
+  if (tabwid_link === null) {
+    const tabwid_styles = document.evaluate("//style[contains(., 'tabwid')]", document, null, XPathResult.ANY_TYPE, null );
+    tabwid_link = tabwid_styles.iterateNext();
+  }
+
+  Array.prototype.forEach.call(els, function(template) {
+      const dest = document.createElement("div");
+      template.parentNode.insertBefore(dest, template.nextSibling)
+      dest.setAttribute("class", "flextable-shadow-host");
+      const fantome = dest.attachShadow({mode: 'open'});
+      fantome.appendChild(template);
+      if (tabwid_link !== null) {
+        fantome.appendChild(tabwid_link.cloneNode(true));
+      }
+  });
+
+  const shadowHosts = document.querySelectorAll('.flextable-shadow-host:not(:has(div > table.no-shadow-dom))');
+  shadowHosts.forEach(host => {
+    if (host.shadowRoot) {
+      const spanElements = host.shadowRoot.querySelector('div > table > caption > span[id]');
+      if (spanElements) {
+        const id = spanElements.getAttribute("id");
+        host.setAttribute("id", id);
+      }
+    }
+  });
+
+});
+</script>
+
 
 
 </head>
@@ -4787,13 +4864,20 @@ vertical-align: -.125em;
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">nmlab3.github.io</h1>
+<h1 class="title">Lab 3: COVID-19</h1>
+<p class="subtitle lead">Ecosystem Science and Sustainability 330</p>
 </div>
 
 
 
 <div class="quarto-title-meta">
 
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Neva Morgan <a href="mailto:neva.morgan@colostate.edu" class="quarto-title-author-email"><i class="bi bi-envelope"></i></a> </p>
+          </div>
+  </div>
     
   
     
@@ -4804,16 +4888,355 @@ vertical-align: -.125em;
 </header>
 
 
-<p>This is a Quarto website.</p>
-<p>To learn more about Quarto websites visit <a href="https://quarto.org/docs/websites" class="uri">https://quarto.org/docs/websites</a>.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span> <span class="sc">+</span> <span class="dv">1</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: package &#39;tidyverse&#39; was built under R version 4.4.3</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: package &#39;ggplot2&#39; was built under R version 4.4.3</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: package &#39;tidyr&#39; was built under R version 4.4.3</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: package &#39;readr&#39; was built under R version 4.4.3</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: package &#39;purrr&#39; was built under R version 4.4.3</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: package &#39;dplyr&#39; was built under R version 4.4.3</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──
+✔ dplyr     1.1.4     ✔ readr     2.1.5
+✔ forcats   1.0.0     ✔ stringr   1.5.1
+✔ ggplot2   3.5.1     ✔ tibble    3.2.1
+✔ lubridate 1.9.4     ✔ tidyr     1.3.1
+✔ purrr     1.0.4     
+── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
+✖ dplyr::filter() masks stats::filter()
+✖ dplyr::lag()    masks stats::lag()
+ℹ Use the conflicted package (&lt;http://conflicted.r-lib.org/&gt;) to force all conflicts to become errors</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(zoo)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: package &#39;zoo&#39; was built under R version 4.4.3</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>
+Attaching package: &#39;zoo&#39;
+
+The following objects are masked from &#39;package:base&#39;:
+
+    as.Date, as.Date.numeric</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(flextable)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: package &#39;flextable&#39; was built under R version 4.4.3</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>
+Attaching package: &#39;flextable&#39;
+
+The following object is masked from &#39;package:purrr&#39;:
+
+    compose</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>url <span class="ot">&lt;-</span> <span class="st">&#39;https://raw.githubusercontent.com/nytimes/covid-19-data/master/us-counties.csv&#39;</span></span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>covid <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(url)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<section id="question-1-public-data" class="level3">
+<h3 class="anchored" data-anchor-id="question-1-public-data"><strong>Question 1:</strong> <strong>Public Data</strong></h3>
+<section id="take-a-moment-to-reflect-on-the-value-of-open-data" class="level4">
+<h4 class="anchored" data-anchor-id="take-a-moment-to-reflect-on-the-value-of-open-data">Take a moment to reflect on the value of open data:</h4>
+<ol type="1">
+<li>How does easy access to historical and real-time environmental, data shape our understanding of climate trends, resource management, and public health?
+<ol type="1">
+<li>It’s crucial for data especially concerning climate trends, resource management, and public health to be public information, but I can understand the concern of data privacy as it relates to foreign body intentions. Certain aspects of data are vital to be kept private, for example, even data that is pulled from a CitSci organization must have a check of intentions with the data they are requesting. I think for future projections of any real data that is interacting with people internationally, that should be public knowledge. Giving the ability of access is crucial in developing possible new strategies for combating and mitigating lasting effects of climate change.</li>
+</ol></li>
+<li>What happens when this data disappears or becomes inaccessible?
+<ol type="1">
+<li></li>
+</ol></li>
+<li>The role of independent archiving and collaborative stewardship has never been more critical in ensuring scientific progress and accountability.
+<ol type="1">
+<li></li>
+</ol></li>
+</ol>
+<p>~~~</p>
+</section>
+</section>
+<section id="question-2-daily-summary" class="level3">
+<h3 class="anchored" data-anchor-id="question-2-daily-summary"><strong>Question 2: Daily Summary</strong></h3>
+<p>Focused criteria to use to place countries on the watch list for COVID-19:</p>
+<ul>
+<li>More than 100 new cases per 100,000 residents over the past 14 days…</li>
+</ul>
+<p>OBJECTIVES:</p>
+<ol type="1">
+<li>cumulative cases in the 5 worst counties</li>
+</ol>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>my.date <span class="ot">&lt;-</span> <span class="fu">as.Date</span>(<span class="st">&quot;2022-02-01&quot;</span>)</span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>my.state <span class="ot">&lt;-</span> <span class="st">&quot;Colorado&quot;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<ol start="2" type="1">
+<li>total <strong>NEW</strong> cases in the 5 worst counties</li>
+</ol>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>covid_data <span class="ot">&lt;-</span> covid</span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>colorado <span class="ot">&lt;-</span> covid_data <span class="sc">|&gt;</span></span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(state <span class="sc">==</span> my.state) <span class="sc">|&gt;</span></span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(county) <span class="sc">|&gt;</span></span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(date) <span class="sc">|&gt;</span></span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">new_cases =</span> cases <span class="sc">-</span> <span class="fu">lag</span>(cases),</span>
+<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a>         <span class="at">new_deaths =</span> deaths <span class="sc">-</span> <span class="fu">lag</span>(deaths)) <span class="sc">|&gt;</span></span>
+<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<ol start="3" type="1">
+<li>A list of safe counties</li>
+</ol>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">filter</span>(colorado, date <span class="sc">==</span> my.date) <span class="sc">|&gt;</span></span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">slice_max</span>(cases, <span class="at">n =</span> <span class="dv">5</span>) <span class="sc">|&gt;</span></span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="at">Date =</span> date, <span class="at">County =</span> county, <span class="at">Cases =</span> cases) <span class="sc">|&gt;</span></span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">flextable</span>() <span class="sc">|&gt;</span></span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">set_caption</span>(<span class="at">caption =</span> <span class="st">&quot;Most Total Cases&quot;</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div class="tabwid"><style>.cl-90abd276{}.cl-90a64680{font-family:'Arial';font-size:11pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-90a87ff4{margin:0;text-align:left;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-90a87ffe{margin:0;text-align:right;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-90a89552{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 1.5pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-90a8955c{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 1.5pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-90a89566{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-90a89567{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-90a89570{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-90a89571{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}</style><table data-quarto-disable-processing="true" class="cl-90abd276"><thead><tr style="overflow-wrap:break-word;"><th class="cl-90a89552"><p class="cl-90a87ff4"><span class="cl-90a64680">Date</span></p></th><th class="cl-90a89552"><p class="cl-90a87ff4"><span class="cl-90a64680">County</span></p></th><th class="cl-90a8955c"><p class="cl-90a87ffe"><span class="cl-90a64680">Cases</span></p></th></tr></thead><tbody><tr style="overflow-wrap:break-word;"><td class="cl-90a89566"><p class="cl-90a87ff4"><span class="cl-90a64680">2022-02-01</span></p></td><td class="cl-90a89566"><p class="cl-90a87ff4"><span class="cl-90a64680">El Paso</span></p></td><td class="cl-90a89567"><p class="cl-90a87ffe"><span class="cl-90a64680">170,673</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-90a89566"><p class="cl-90a87ff4"><span class="cl-90a64680">2022-02-01</span></p></td><td class="cl-90a89566"><p class="cl-90a87ff4"><span class="cl-90a64680">Denver</span></p></td><td class="cl-90a89567"><p class="cl-90a87ffe"><span class="cl-90a64680">159,022</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-90a89566"><p class="cl-90a87ff4"><span class="cl-90a64680">2022-02-01</span></p></td><td class="cl-90a89566"><p class="cl-90a87ff4"><span class="cl-90a64680">Arapahoe</span></p></td><td class="cl-90a89567"><p class="cl-90a87ffe"><span class="cl-90a64680">144,255</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-90a89566"><p class="cl-90a87ff4"><span class="cl-90a64680">2022-02-01</span></p></td><td class="cl-90a89566"><p class="cl-90a87ff4"><span class="cl-90a64680">Adams</span></p></td><td class="cl-90a89567"><p class="cl-90a87ffe"><span class="cl-90a64680">126,768</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-90a89570"><p class="cl-90a87ff4"><span class="cl-90a64680">2022-02-01</span></p></td><td class="cl-90a89570"><p class="cl-90a87ff4"><span class="cl-90a64680">Jefferson</span></p></td><td class="cl-90a89571"><p class="cl-90a87ffe"><span class="cl-90a64680">113,240</span></p></td></tr></tbody></table></div>
+</div>
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">filter</span>(colorado, date <span class="sc">==</span> my.date) <span class="sc">|&gt;</span></span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">slice_max</span>(cases, <span class="at">n =</span> <span class="dv">5</span>) <span class="sc">|&gt;</span></span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="at">Date =</span> date, <span class="at">County =</span> county, <span class="at">Cases =</span> new_cases) <span class="sc">|&gt;</span></span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">flextable</span>() <span class="sc">|&gt;</span></span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">set_caption</span>(<span class="at">caption =</span> <span class="st">&quot;Most NEW Cases&quot;</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div class="tabwid"><style>.cl-90e0acda{}.cl-90dba244{font-family:'Arial';font-size:11pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-90dd9f54{margin:0;text-align:left;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-90dd9f5e{margin:0;text-align:right;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-90ddb57a{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 1.5pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-90ddb584{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 1.5pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-90ddb598{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-90ddb599{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-90ddb5a2{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-90ddb5a3{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}</style><table data-quarto-disable-processing="true" class="cl-90e0acda"><thead><tr style="overflow-wrap:break-word;"><th class="cl-90ddb57a"><p class="cl-90dd9f54"><span class="cl-90dba244">Date</span></p></th><th class="cl-90ddb57a"><p class="cl-90dd9f54"><span class="cl-90dba244">County</span></p></th><th class="cl-90ddb584"><p class="cl-90dd9f5e"><span class="cl-90dba244">Cases</span></p></th></tr></thead><tbody><tr style="overflow-wrap:break-word;"><td class="cl-90ddb598"><p class="cl-90dd9f54"><span class="cl-90dba244">2022-02-01</span></p></td><td class="cl-90ddb598"><p class="cl-90dd9f54"><span class="cl-90dba244">El Paso</span></p></td><td class="cl-90ddb599"><p class="cl-90dd9f5e"><span class="cl-90dba244">630</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-90ddb598"><p class="cl-90dd9f54"><span class="cl-90dba244">2022-02-01</span></p></td><td class="cl-90ddb598"><p class="cl-90dd9f54"><span class="cl-90dba244">Denver</span></p></td><td class="cl-90ddb599"><p class="cl-90dd9f5e"><span class="cl-90dba244">389</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-90ddb598"><p class="cl-90dd9f54"><span class="cl-90dba244">2022-02-01</span></p></td><td class="cl-90ddb598"><p class="cl-90dd9f54"><span class="cl-90dba244">Arapahoe</span></p></td><td class="cl-90ddb599"><p class="cl-90dd9f5e"><span class="cl-90dba244">401</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-90ddb598"><p class="cl-90dd9f54"><span class="cl-90dba244">2022-02-01</span></p></td><td class="cl-90ddb598"><p class="cl-90dd9f54"><span class="cl-90dba244">Adams</span></p></td><td class="cl-90ddb599"><p class="cl-90dd9f5e"><span class="cl-90dba244">326</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-90ddb5a2"><p class="cl-90dd9f54"><span class="cl-90dba244">2022-02-01</span></p></td><td class="cl-90ddb5a2"><p class="cl-90dd9f54"><span class="cl-90dba244">Jefferson</span></p></td><td class="cl-90ddb5a3"><p class="cl-90dd9f5e"><span class="cl-90dba244">291</span></p></td></tr></tbody></table></div>
+</div>
+</div>
+<ol start="4" type="1">
+<li>A text report describing the total new cases, total cumulative cases, and number of safe counties.</li>
+</ol>
+</section>
+<section id="question-3-normalizing-data" class="level1">
+<h1><strong>Question 3: Normalizing Data</strong></h1>
+<section id="given-the-above-url-and-guidelines-on-string-concatenation-and-formatting-read-in-the-population-data-and-1-create-a-five-digit-fip-variable-and-only-keep-columns-that-contain-name-or-2021-remember-the-tidyselect-option-found-with-dplyrselect.-additionally-remove-all-state-level-rows-e.g.-county-fip-000" class="level4">
+<h4 class="anchored" data-anchor-id="given-the-above-url-and-guidelines-on-string-concatenation-and-formatting-read-in-the-population-data-and-1-create-a-five-digit-fip-variable-and-only-keep-columns-that-contain-name-or-2021-remember-the-tidyselect-option-found-with-dplyrselect.-additionally-remove-all-state-level-rows-e.g.-county-fip-000">1. Given the above URL, and guidelines on string concatenation and formatting, read in the population data and (1) create a five digit FIP variable and only keep columns that contain “NAME” or “2021” (remember the tidyselect option found with ?dplyr::select). Additionally, remove all state level rows (e.g. COUNTY FIP == “000”)</h4>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>pop_url <span class="ot">&lt;-</span> <span class="st">&#39;https://www2.census.gov/programs-surveys/popest/datasets/2020-2023/counties/totals/co-est2023-alldata.csv&#39;</span></span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>pop_data <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(pop_url) <span class="sc">|&gt;</span></span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(COUNTY <span class="sc">!=</span> <span class="st">&quot;000&quot;</span>) <span class="sc">|&gt;</span></span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">fips =</span> <span class="fu">sprintf</span>(<span class="st">&quot;%05s&quot;</span>, <span class="fu">paste0</span>(STATE, COUNTY))) <span class="sc">|&gt;</span></span>
+<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(fips, <span class="fu">contains</span>(<span class="st">&quot;NAME&quot;</span>), <span class="fu">contains</span>(<span class="st">&quot;2021&quot;</span>))</span>
+<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(pop_data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 2</code></pre>
+<pre><code>Rows: 3,195
+Columns: 19
+$ fips                  &lt;chr&gt; &quot;   10&quot;, &quot;   11&quot;, &quot;   13&quot;, &quot;   15&quot;, &quot;   17&quot;, &quot;  …
+$ STNAME                &lt;chr&gt; &quot;Alabama&quot;, &quot;Alabama&quot;, &quot;Alabama&quot;, &quot;Alabama&quot;, &quot;Ala…
+$ CTYNAME               &lt;chr&gt; &quot;Alabama&quot;, &quot;Autauga County&quot;, &quot;Baldwin County&quot;, &quot;…
+$ POPESTIMATE2021       &lt;int&gt; 5050380, 59203, 239439, 24533, 22359, 59079, 101…
+$ NPOPCHG2021           &lt;int&gt; 18516, 288, 6212, -436, 171, -28, -86, -135, -56…
+$ BIRTHS2021            &lt;int&gt; 57184, 686, 2337, 270, 240, 654, 111, 227, 1250,…
+$ DEATHS2021            &lt;int&gt; 69135, 696, 2948, 390, 325, 875, 160, 297, 1843,…
+$ NATURALCHG2021        &lt;int&gt; -11951, -10, -611, -120, -85, -221, -49, -70, -5…
+$ INTERNATIONALMIG2021  &lt;int&gt; 1806, 15, 105, 0, 1, 9, 1, 5, 12, 22, 7, 20, 1, …
+$ DOMESTICMIG2021       &lt;int&gt; 27715, 242, 6972, -313, 254, 141, -42, -75, -70,…
+$ NETMIG2021            &lt;int&gt; 29521, 257, 7077, -313, 255, 150, -41, -70, -58,…
+$ RESIDUAL2021          &lt;int&gt; 946, 41, -254, -3, 1, 43, 4, 5, 86, 21, 2, 18, 7…
+$ GQESTIMATES2021       &lt;int&gt; 134653, 484, 3351, 2248, 1994, 616, 1578, 285, 5…
+$ RBIRTH2021            &lt;dbl&gt; 11.343506, 11.615503, 9.888589, 10.908650, 10.77…
+$ RDEATH2021            &lt;dbl&gt; 13.71421, 11.78483, 12.47392, 15.75694, 14.59133…
+$ RNATURALCHG2021       &lt;dbl&gt; -2.3707024, -0.1693222, -2.5853351, -4.8482890, …
+$ RINTERNATIONALMIG2021 &lt;dbl&gt; 0.35825358, 0.25398330, 0.44428836, 0.00000000, …
+$ RDOMESTICMIG2021      &lt;dbl&gt; 5.4977840, 4.0975973, 29.5007468, -12.6459537, 1…
+$ RNETMIG2021           &lt;dbl&gt; 5.8560376, 4.3515806, 29.9450352, -12.6459537, 1…</code></pre>
 </div>
 </div>
+</section>
+<section id="now-explore-the-data-what-attributes-does-it-have-what-are-the-names-of-the-columns-do-any-match-the-covid-data-we-have-what-are-the-dimensions-in-a-few-sentences-describe-the-data-obtained-after-modification" class="level4">
+<h4 class="anchored" data-anchor-id="now-explore-the-data-what-attributes-does-it-have-what-are-the-names-of-the-columns-do-any-match-the-covid-data-we-have-what-are-the-dimensions-in-a-few-sentences-describe-the-data-obtained-after-modification">2. Now, explore the data … what attributes does it have, what are the names of the columns? Do any match the COVID data we have? What are the dimensions… In a few sentences describe the data obtained after modification:</h4>
+<section id="the-data-that-was-comprised-in-the-table-above-displays-a-more-concise-depiction-of-the-2021-covid-data.-the-data-represents-3195-observations-rows-with-19-variables-columns.-the-19-variables-represent-as-of-2021-fip-code-state-county-name-population-as-of-2021-population-changes-births-deaths-natural-change-international-migration-domestic-migration-net-migration-residual-population-gq-estimation-birth-rates-death-rates-natural-change-rate-international-migration-rate-domestic-migration-rate-and-net-migration-rate.-there-are-similarities-between-the-covid-dataset-and-population-data-set-as-they-both-include-deaths-although-covid-data-is-related-to-covid-deaths-and-pop-data-is-related-ot-total-deaths-state-and-county." class="level6">
+<h6 class="anchored" data-anchor-id="the-data-that-was-comprised-in-the-table-above-displays-a-more-concise-depiction-of-the-2021-covid-data.-the-data-represents-3195-observations-rows-with-19-variables-columns.-the-19-variables-represent-as-of-2021-fip-code-state-county-name-population-as-of-2021-population-changes-births-deaths-natural-change-international-migration-domestic-migration-net-migration-residual-population-gq-estimation-birth-rates-death-rates-natural-change-rate-international-migration-rate-domestic-migration-rate-and-net-migration-rate.-there-are-similarities-between-the-covid-dataset-and-population-data-set-as-they-both-include-deaths-although-covid-data-is-related-to-covid-deaths-and-pop-data-is-related-ot-total-deaths-state-and-county.">The data that was comprised in the table above displays a more concise depiction of the 2021 covid data. The data represents 3195 observations (rows) with 19 variables (columns). The 19 variables represent as of 2021: fip code, state, county name, population as of 2021, population changes, births, deaths, natural change, international migration, domestic migration, net migration, residual population, GQ estimation, birth rates, death rates, natural change rate, international migration rate, domestic migration rate, and net migration rate. There are similarities between the covid dataset and population data set, as they both include deaths (although covid data is related to covid deaths and pop data is related ot total deaths), state, and county.</h6>
+</section>
+</section>
+<section id="what-is-the-range-of-populations-seen-in-colorado-counties-in-2021" class="level4">
+<h4 class="anchored" data-anchor-id="what-is-the-range-of-populations-seen-in-colorado-counties-in-2021">3. What is the range of populations seen in Colorado counties in 2021:</h4>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>colorado_data <span class="ot">&lt;-</span> pop_data <span class="sc">|&gt;</span></span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="at">state =</span> STNAME)<span class="sc">|&gt;</span></span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(state <span class="sc">==</span> <span class="st">&quot;Colorado&quot;</span>) <span class="sc">|&gt;</span></span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">min_pop =</span> <span class="fu">min</span>(POPESTIMATE2021, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">max_pop =</span> <span class="fu">max</span>(POPESTIMATE2021, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">pop_range =</span> max_pop <span class="sc">-</span> min_pop</span>
+<span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb22-8"><a href="#cb22-8" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(colorado_data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Rows: 1
+Columns: 3
+$ min_pop   &lt;int&gt; 741
+$ max_pop   &lt;int&gt; 5811596
+$ pop_range &lt;int&gt; 5810855</code></pre>
+</div>
+</div>
+</section>
+<section id="join-the-population-data-to-the-colorado-covid-data-and-compute-the-per-capita-cumulative-cases-per-capita-new-cases-and-per-capita-new-deaths" class="level4">
+<h4 class="anchored" data-anchor-id="join-the-population-data-to-the-colorado-covid-data-and-compute-the-per-capita-cumulative-cases-per-capita-new-cases-and-per-capita-new-deaths">4. Join the population data to the Colorado COVID data and compute the per capita cumulative cases, per capita new cases, and per capita new deaths:</h4>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>pop_data <span class="ot">&lt;-</span> pop_data <span class="sc">|&gt;</span> <span class="fu">mutate</span>(<span class="at">CTYNAME =</span> <span class="fu">str_replace</span>(CTYNAME, <span class="st">&quot;County&quot;</span>, <span class="st">&quot;&quot;</span>))</span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>covid_data <span class="ot">&lt;-</span> covid_data <span class="sc">|&gt;</span></span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(county, date) <span class="sc">|&gt;</span></span>
+<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(county) <span class="sc">|&gt;</span> </span>
+<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">new_cases =</span> cases <span class="sc">-</span> <span class="fu">lag</span>(cases, <span class="at">default =</span> <span class="dv">0</span>)) <span class="sc">|&gt;</span></span>
+<span id="cb24-7"><a href="#cb24-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">new_deaths =</span> deaths <span class="sc">-</span> <span class="fu">lag</span>(deaths, <span class="at">default =</span> <span class="dv">0</span>)) <span class="sc">|&gt;</span></span>
+<span id="cb24-8"><a href="#cb24-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>()</span>
+<span id="cb24-9"><a href="#cb24-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-10"><a href="#cb24-10" aria-hidden="true" tabindex="-1"></a>colorado_combined <span class="ot">&lt;-</span> covid_data <span class="sc">|&gt;</span></span>
+<span id="cb24-11"><a href="#cb24-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(state <span class="sc">==</span> <span class="st">&quot;Colorado&quot;</span>) <span class="sc">|&gt;</span></span>
+<span id="cb24-12"><a href="#cb24-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(pop_data <span class="sc">|&gt;</span> <span class="fu">rename</span>(<span class="at">state =</span> STNAME, <span class="at">county =</span> CTYNAME), <span class="at">by =</span> <span class="fu">c</span>(<span class="st">&quot;state&quot;</span>, <span class="st">&quot;county&quot;</span>)) <span class="sc">|&gt;</span></span>
+<span id="cb24-13"><a href="#cb24-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb24-14"><a href="#cb24-14" aria-hidden="true" tabindex="-1"></a>    <span class="at">percapita_cumulative_cases =</span> cases <span class="sc">/</span> POPESTIMATE2021,</span>
+<span id="cb24-15"><a href="#cb24-15" aria-hidden="true" tabindex="-1"></a>    <span class="at">percapita_new_cases =</span> new_cases <span class="sc">/</span> POPESTIMATE2021,</span>
+<span id="cb24-16"><a href="#cb24-16" aria-hidden="true" tabindex="-1"></a>    <span class="at">percapita_new_deaths =</span> new_deaths <span class="sc">/</span> POPESTIMATE2021</span>
+<span id="cb24-17"><a href="#cb24-17" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">|&gt;</span></span>
+<span id="cb24-18"><a href="#cb24-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">glimpse</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Rows: 49,527
+Columns: 28
+$ date                       &lt;chr&gt; &quot;2020-03-12&quot;, &quot;2020-03-13&quot;, &quot;2020-03-14&quot;, &quot;…
+$ county                     &lt;chr&gt; &quot;Adams&quot;, &quot;Adams&quot;, &quot;Adams&quot;, &quot;Adams&quot;, &quot;Adams&quot;…
+$ state                      &lt;chr&gt; &quot;Colorado&quot;, &quot;Colorado&quot;, &quot;Colorado&quot;, &quot;Colora…
+$ fips.x                     &lt;int&gt; 8001, 8001, 8001, 8001, 8001, 8001, 8001, 8…
+$ cases                      &lt;int&gt; 2, 3, 6, 6, 8, 10, 10, 10, 12, 14, 18, 25, …
+$ deaths                     &lt;int&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0…
+$ new_cases                  &lt;int&gt; 1, 2, 5, 5, 7, 9, 9, 9, 10, 9, 13, 20, 26, …
+$ new_deaths                 &lt;int&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0…
+$ fips.y                     &lt;chr&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA,…
+$ POPESTIMATE2021            &lt;int&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA,…
+$ NPOPCHG2021                &lt;int&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA,…
+$ BIRTHS2021                 &lt;int&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA,…
+$ DEATHS2021                 &lt;int&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA,…
+$ NATURALCHG2021             &lt;int&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA,…
+$ INTERNATIONALMIG2021       &lt;int&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA,…
+$ DOMESTICMIG2021            &lt;int&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA,…
+$ NETMIG2021                 &lt;int&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA,…
+$ RESIDUAL2021               &lt;int&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA,…
+$ GQESTIMATES2021            &lt;int&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA,…
+$ RBIRTH2021                 &lt;dbl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA,…
+$ RDEATH2021                 &lt;dbl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA,…
+$ RNATURALCHG2021            &lt;dbl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA,…
+$ RINTERNATIONALMIG2021      &lt;dbl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA,…
+$ RDOMESTICMIG2021           &lt;dbl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA,…
+$ RNETMIG2021                &lt;dbl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA,…
+$ percapita_cumulative_cases &lt;dbl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA,…
+$ percapita_new_cases        &lt;dbl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA,…
+$ percapita_new_deaths       &lt;dbl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA,…</code></pre>
+</div>
+</div>
+</section>
+<section id="generate-2-new-tables.-the-first-should-show-the-5-counties-with-the-most-cumulative-cases-per-capita-on-2021-01-01-and-the-second-should-show-the-5-counties-with-the-most-new-cases-per-capita-on-the-same-date.-your-tables-should-have-clear-column-names-and-descriptive-captions." class="level4">
+<h4 class="anchored" data-anchor-id="generate-2-new-tables.-the-first-should-show-the-5-counties-with-the-most-cumulative-cases-per-capita-on-2021-01-01-and-the-second-should-show-the-5-counties-with-the-most-new-cases-per-capita-on-the-same-date.-your-tables-should-have-clear-column-names-and-descriptive-captions.">5. Generate (2) new tables. The first should show the 5 counties with the most cumulative cases per capita on 2021-01-01, and the second should show the 5 counties with the most NEW cases per capita on the same date. Your tables should have clear column names and descriptive captions.</h4>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>CO_counties <span class="ot">&lt;-</span> colorado_combined <span class="sc">|&gt;</span></span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(date <span class="sc">==</span> <span class="st">&quot;2021-01-01&quot;</span>) <span class="sc">|&gt;</span></span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(percapita_cumulative_cases)) <span class="sc">|&gt;</span></span>
+<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">slice_head</span>(<span class="at">n =</span> <span class="dv">5</span>)</span>
+<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(CO_counties, <span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">reorder</span>(county, percapita_cumulative_cases), <span class="at">y =</span> percapita_cumulative_cases)) <span class="sc">+</span></span>
+<span id="cb26-7"><a href="#cb26-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_col</span>(<span class="at">fill =</span> <span class="st">&quot;blue&quot;</span>) <span class="sc">+</span></span>
+<span id="cb26-8"><a href="#cb26-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb26-9"><a href="#cb26-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">&quot;Top 5 Counties by Cumulative COVID Cases per Capita (2021-01-01)&quot;</span>,</span>
+<span id="cb26-10"><a href="#cb26-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">caption =</span> <span class="st">&quot;ESS330 Lab 3 Neva Morgan&quot;</span>,</span>
+<span id="cb26-11"><a href="#cb26-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">&quot;County&quot;</span>,</span>
+<span id="cb26-12"><a href="#cb26-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">&quot;Cumulative Cases Per Capita&quot;</span></span>
+<span id="cb26-13"><a href="#cb26-13" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb26-14"><a href="#cb26-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: Position guide is perpendicular to the intended axis.
+ℹ Did you mean to specify a different guide `position`?</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: Removed 5 rows containing missing values or values outside the scale range
+(`geom_col()`).</code></pre>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img role="img" src="data:image/png;base64,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" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>CO_new_counties <span class="ot">&lt;-</span> colorado_combined <span class="sc">|&gt;</span></span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(date <span class="sc">==</span> <span class="st">&quot;2021-01-01&quot;</span>) <span class="sc">|&gt;</span></span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(percapita_new_cases)) <span class="sc">|&gt;</span></span>
+<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">slice_head</span>(<span class="at">n =</span> <span class="dv">5</span>)</span>
+<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-6"><a href="#cb29-6" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(CO_new_counties, <span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">reorder</span>(county, percapita_new_cases), <span class="at">y =</span> percapita_new_cases)) <span class="sc">+</span></span>
+<span id="cb29-7"><a href="#cb29-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_col</span>(<span class="at">fill =</span> <span class="st">&quot;magenta&quot;</span>) <span class="sc">+</span></span>
+<span id="cb29-8"><a href="#cb29-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb29-9"><a href="#cb29-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">&quot;Top 5 Counties by New COVID Cases per Capita (2021-01-01)&quot;</span>,</span>
+<span id="cb29-10"><a href="#cb29-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">caption =</span> <span class="st">&quot;ESS330 Lab 3 Neva Morgan&quot;</span>,</span>
+<span id="cb29-11"><a href="#cb29-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">&quot;County&quot;</span>,</span>
+<span id="cb29-12"><a href="#cb29-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">&quot;New Cases Per Capita&quot;</span></span>
+<span id="cb29-13"><a href="#cb29-13" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb29-14"><a href="#cb29-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: Position guide is perpendicular to the intended axis.
+ℹ Did you mean to specify a different guide `position`?
+Removed 5 rows containing missing values or values outside the scale range
+(`geom_col()`).</code></pre>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img role="img" src="data:image/png;base64,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" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="question-4-rolling-thresholds" class="level1">
+<h1><strong>Question 4: Rolling thresholds</strong></h1>
+<section id="filter-the-merged-covidpopulation-data-to-only-include-the-last-14-days.-remember-this-should-be-a-programmatic-request-and-not-hard-coded.-then-use-the-group_bysummarize-paradigm-to-determine-the-total-number-of-new-cases-in-the-last-14-days-per-100000-people.-print-a-table-of-the-top-5-counties-and-report-the-number-that-meet-the-watch-list-condition-more-than-100-new-cases-per-100000-residents-over-the-past-14-days" class="level4">
+<h4 class="anchored" data-anchor-id="filter-the-merged-covidpopulation-data-to-only-include-the-last-14-days.-remember-this-should-be-a-programmatic-request-and-not-hard-coded.-then-use-the-group_bysummarize-paradigm-to-determine-the-total-number-of-new-cases-in-the-last-14-days-per-100000-people.-print-a-table-of-the-top-5-counties-and-report-the-number-that-meet-the-watch-list-condition-more-than-100-new-cases-per-100000-residents-over-the-past-14-days">Filter the merged COVID/Population data to only include the last 14 days. Remember this should be a programmatic request and not hard-coded. Then, use the group_by/summarize paradigm to determine the total number of new cases in the last 14 days per 100,000 people. Print a table of the top 5 counties, and, report the number that meet the watch list condition: “More than 100 new cases per 100,000 residents over the past 14 days…”</h4>
+<p>(Hint: Dates are numeric in R and thus operations like max min, -, +, &gt;, and&lt; work.)</p>
+</section>
+</section>
+<section id="question-6-multi-state" class="level1">
+<h1><strong>Question 6: Multi-state</strong></h1>
+<section id="steps" class="level2">
+<h2 class="anchored" data-anchor-id="steps"><strong>Steps:</strong></h2>
+<ol type="1">
+<li>First, we need to <code>group/summarize</code> our county level data to the state level, <code>filter</code> it to the four states of interest, and calculate the number of daily new cases (<code>diff/lag</code>) and the 7-day rolling mean.</li>
+</ol>
+<p><strong>Rolling Averages</strong></p>
+<p><strong>Hint:</strong> You will need two <code>group_by</code> calls and the <code>zoo::rollmean</code> function.</p>
+<ol start="2" type="1">
+<li>Using the modified data, make a facet plot of the daily new cases and the 7-day rolling mean. Your plot should use compelling geoms, labels, colors, and themes.</li>
+</ol>
+<!-- -->
+<ol start="3" type="1">
+<li>The story of raw case counts can be misleading. To understand why, lets explore the cases per capita of each state. To do this, join the state COVID data to the population estimates and calculate the newcases/totalpopulation. Additionally, calculate the 7-day rolling mean of the new cases per capita counts. <strong>This is a tricky task and will take some thought, time, and modification to existing code (most likely)!</strong></li>
+</ol>
+<p><strong>Hint</strong>: You may need to modify the columns you kept in your original population data. Be creative with how you join data (inner vs outer vs full)!</p>
+<ol start="4" type="1">
+<li>Using the per capita data, plot the 7-day rolling averages overlying each other (one plot) with compelling labels, colors, and theme.</li>
+</ol>
+<!-- -->
+<ol start="5" type="1">
+<li>Briefly describe the influence scaling by population had on the analysis? Does it make some states look better? Some worse? How so?</li>
+</ol>
 
 
+</section>
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
